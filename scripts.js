@@ -5,22 +5,39 @@ class Parquimetro {
     }
 
     calcularTempo(valor) {
-        if (valor < this.precoPorHora) {
+        if (valor < 1) {
             return { tempo: null, mensagem: 'Valor insuficiente! O valor mínimo é R$1,00.' };
         }
 
         // Calcular tempo em horas
-        const horas = Math.floor(valor / this.precoPorHora);
-        const minutos = Math.round((valor % this.precoPorHora) * 60); // Resto em minutos
+        if (valor >= 1 && valor < 1.75) {
+            const horas = '';
+            const minutos = 30; // Resto em minutos
+            return { tempo: `${horas} horas e ${minutos} minutos`, mensagem: '' };
+        }else if(valor >= 1.75 && valor < 3) {
+            const horas = 1;
+            const minutos = 0; // Resto em minutos
+            return { tempo: `${horas} horas e ${minutos} minutos`, mensagem: '' };
+        }else if (valor > 3) {
+            const horas = 1;
+            const minutos = 30; // Resto em minutos
+            return { tempo: `${horas} horas e ${minutos} minutos`, mensagem: '' };
+        }
 
-        return { tempo: `${horas} horas e ${minutos} minutos`, mensagem: '' };
     }
 
     calcularTroco(valor, tempoCalculado) {
         // Calcular o valor total que foi consumido com o tempo
-        const valorTotal = Math.floor(valor / this.precoPorHora) * this.precoPorHora;
-        const troco = valor - valorTotal;
-        return troco >= 0 ? `Troco: R$${troco.toFixed(2)}` : '';
+        if (valor >= 1 && valor < 1.75) {
+            const troco = valor - 1;
+            return troco >= 0 ? `Troco: R$${troco.toFixed(2)}` : '';
+        }else if(valor >= 1.75 && valor < 3) {
+            const troco = valor - 1.75;
+            return troco >= 0 ? `Troco: R$${troco.toFixed(2)}` : '';
+        }else if (valor > 3) {
+            const troco = valor - 3;
+            return troco >= 0 ? `Troco: R$${troco.toFixed(2)}` : '';
+        }
     }
 }
 
